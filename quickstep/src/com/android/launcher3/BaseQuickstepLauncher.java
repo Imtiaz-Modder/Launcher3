@@ -84,7 +84,11 @@ import com.android.quickstep.util.RemoteAnimationProvider;
 import com.android.quickstep.util.RemoteFadeOutAnimationListener;
 import com.android.quickstep.util.SplitSelectStateController;
 import com.android.quickstep.util.TISBindHelper;
-import com.android.quickstep.views.MemInfoView;
+//<<<<<<< HEAD
+//import com.android.quickstep.views.MemInfoView;
+//=======
+import com.android.quickstep.views.MidClearAllButton;
+//>>>>>>> e780fabd2a (Introduce floating clear all button)
 import com.android.quickstep.views.OverviewActionsView;
 import com.android.quickstep.views.RecentsView;
 import com.android.systemui.shared.system.ActivityManagerWrapper;
@@ -119,7 +123,11 @@ public abstract class BaseQuickstepLauncher extends Launcher {
                     Float.intBitsToFloat(arg1), arg2 != 0);
 
     private OverviewActionsView mActionsView;
-    private MemInfoView mMemInfoView;
+//<<<<<<< HEAD
+  //  private MemInfoView mMemInfoView;
+//=======
+    private MidClearAllButton mMidClearAllButton;
+//>>>>>>> e780fabd2a (Introduce floating clear all button)
 
     private TISBindHelper mTISBindHelper;
     private @Nullable TaskbarManager mTaskbarManager;
@@ -192,6 +200,20 @@ public abstract class BaseQuickstepLauncher extends Launcher {
     }
 
     @Override
+//<<<<<<< HEAD
+//=======
+    public void onNavigationModeChanged(Mode newMode) {
+        getDragLayer().recreateControllers();
+        if (mActionsView != null) {
+            mActionsView.updateVerticalMargin(newMode);
+        }
+        if (mMidClearAllButton != null) {
+            mMidClearAllButton.updateVerticalMargin(newMode);
+        }
+    }
+
+    @Override
+//>>>>>>> e780fabd2a (Introduce floating clear all button)
     public void onEnterAnimationComplete() {
         super.onEnterAnimationComplete();
         // After the transition to home, enable the high-res thumbnail loader if it wasn't enabled
@@ -335,16 +357,30 @@ public abstract class BaseQuickstepLauncher extends Launcher {
         super.setupViews();
 
         mActionsView = findViewById(R.id.overview_actions_view);
-        mMemInfoView = findViewById(R.id.meminfo);
+//<<<<<<< HEAD
+   //     mMemInfoView = findViewById(R.id.meminfo);
+     //   RecentsView overviewPanel = (RecentsView) getOverviewPanel();
+       // SplitSelectStateController controller =
+       //         new SplitSelectStateController(this, mHandler, getStateManager(),
+       //                 getDepthController());
+     //   overviewPanel.init(mActionsView, controller, mMemInfoView);
+     //   mActionsView.updateDimension(getDeviceProfile(), overviewPanel.getLastComputedTaskSize());
+      // mActionsView.updateVerticalMargin(DisplayController.getNavigationMode(this));
+      //  mMemInfoView.setDp(getDeviceProfile());
+      //  mMemInfoView.updateVerticalMargin(DisplayController.getNavigationMode(this));
+//=======
+        mMidClearAllButton = findViewById(R.id.mid_clear_all);
         RecentsView overviewPanel = (RecentsView) getOverviewPanel();
         SplitSelectStateController controller =
-                new SplitSelectStateController(this, mHandler, getStateManager(),
-                        getDepthController());
-        overviewPanel.init(mActionsView, controller, mMemInfoView);
-        mActionsView.updateDimension(getDeviceProfile(), overviewPanel.getLastComputedTaskSize());
-        mActionsView.updateVerticalMargin(DisplayController.getNavigationMode(this));
-        mMemInfoView.setDp(getDeviceProfile());
-        mMemInfoView.updateVerticalMargin(DisplayController.getNavigationMode(this));
+                new SplitSelectStateController(mHandler, SystemUiProxy.INSTANCE.get(this),
+                        getStateManager(), getDepthController());
+        overviewPanel.init(mActionsView, controller, mMidClearAllButton);
+        mActionsView.setDp(getDeviceProfile());
+        mMidClearAllButton.setDp(getDeviceProfile());
+        mActionsView.updateVerticalMargin(SysUINavigationMode.getMode(this));
+        mMidClearAllButton.updateVerticalMargin(SysUINavigationMode.getMode(this));
+
+//>>>>>>> e780fabd2a (Introduce floating clear all button)
         mAppTransitionManager = new QuickstepTransitionManager(this);
         mAppTransitionManager.registerRemoteAnimations();
         mAppTransitionManager.registerRemoteTransitions();
@@ -400,8 +436,13 @@ public abstract class BaseQuickstepLauncher extends Launcher {
         return (T) mActionsView;
     }
 
-    public MemInfoView getMemInfoView () {
-        return mMemInfoView;
+//<<<<<<< HEAD
+  //  public MemInfoView getMemInfoView () {
+   //     return mMemInfoView;
+//=======
+    public MidClearAllButton getMidClearAllButton () {
+        return mMidClearAllButton;
+//>>>>>>> e780fabd2a (Introduce floating clear all button)
     }
 
     @Override

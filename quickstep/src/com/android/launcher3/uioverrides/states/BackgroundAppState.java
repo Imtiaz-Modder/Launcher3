@@ -73,7 +73,11 @@ public class BackgroundAppState extends OverviewState {
     public int getVisibleElements(Launcher launcher) {
         return super.getVisibleElements(launcher)
                 & ~OVERVIEW_ACTIONS
-                & ~MEMINFO
+//<<<<<<< HEAD
+  //              & ~MEMINFO
+//=======
+                & ~MID_CLEAR_ALL_BUTTON
+//>>>>>>> e780fabd2a (Introduce floating clear all button)
                 & ~VERTICAL_SWIPE_INDICATOR;
     }
 

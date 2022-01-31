@@ -76,10 +76,15 @@ import com.android.quickstep.fallback.FallbackRecentsStateController;
 import com.android.quickstep.fallback.FallbackRecentsView;
 import com.android.quickstep.fallback.RecentsDragLayer;
 import com.android.quickstep.fallback.RecentsState;
+import com.android.quickstep.SysUINavigationMode;
 import com.android.quickstep.util.RecentsAtomicAnimationFactory;
 import com.android.quickstep.util.SplitSelectStateController;
 import com.android.quickstep.util.TISBindHelper;
-import com.android.quickstep.views.MemInfoView;
+//<<<<<<< HEAD
+//import com.android.quickstep.views.MemInfoView;
+//=======
+import com.android.quickstep.views.MidClearAllButton;
+//>>>>>>> e780fabd2a (Introduce floating clear all button)
 import com.android.quickstep.views.OverviewActionsView;
 import com.android.quickstep.views.RecentsView;
 import com.android.quickstep.views.TaskView;
@@ -113,7 +118,11 @@ public final class RecentsActivity extends StatefulActivity<RecentsState> {
     private TISBindHelper mTISBindHelper;
     private @Nullable TaskbarManager mTaskbarManager;
     private @Nullable FallbackTaskbarUIController mTaskbarUIController;
-    private MemInfoView mMemInfoView;
+//<<<<<<< HEAD
+  //  private MemInfoView mMemInfoView;
+//=======
+    private MidClearAllButton mMidClearAllButton;
+//>>>>>>> e780fabd2a (Introduce floating clear all button)
 
     private Configuration mOldConfig;
 
@@ -137,17 +146,28 @@ public final class RecentsActivity extends StatefulActivity<RecentsState> {
         mScrimView = findViewById(R.id.scrim_view);
         mFallbackRecentsView = findViewById(R.id.overview_panel);
         mActionsView = findViewById(R.id.overview_actions_view);
-        mMemInfoView= findViewById(R.id.meminfo);
+//<<<<<<< HEAD
+  //      mMemInfoView= findViewById(R.id.meminfo);
+//=======
+        mMidClearAllButton = findViewById(R.id.mid_clear_all);
+//>>>>>>> e780fabd2a (Introduce floating clear all button)
         SYSUI_PROGRESS.set(getRootView().getSysUiScrim(), 0f);
 
         SplitSelectStateController controller =
                 new SplitSelectStateController(this, mHandler, getStateManager(),
                         null /* depthController */);
         mDragLayer.recreateControllers();
-        mFallbackRecentsView.init(mActionsView, controller, mMemInfoView);
+//<<<<<<< HEAD
+  //      mFallbackRecentsView.init(mActionsView, controller, mMemInfoView);
+//
+  //      mMemInfoView.setDp(mDeviceProfile);
+    //    mMemInfoView.updateVerticalMargin(DisplayController.getNavigationMode(this));
+//=======
+        mFallbackRecentsView.init(mActionsView, controller, mMidClearAllButton);
 
-        mMemInfoView.setDp(mDeviceProfile);
-        mMemInfoView.updateVerticalMargin(DisplayController.getNavigationMode(this));
+        mMidClearAllButton.setDp(mDeviceProfile);
+        mMidClearAllButton.updateVerticalMargin(SysUINavigationMode.getMode(this));
+//>>>>>>> e780fabd2a (Introduce floating clear all button)
 
         mTISBindHelper = new TISBindHelper(this, this::onTISConnected);
     }
@@ -229,8 +249,13 @@ public final class RecentsActivity extends StatefulActivity<RecentsState> {
         return mActionsView;
     }
 
-    public MemInfoView getMemInfoView() {
-        return mMemInfoView;
+//<<<<<<< HEAD
+  //  public MemInfoView getMemInfoView() {
+    //    return mMemInfoView;
+//=======
+    public MidClearAllButton getMidClearAllButton() {
+        return mMidClearAllButton;
+//>>>>>>> e780fabd2a (Introduce floating clear all button)
     }
 
     @Override

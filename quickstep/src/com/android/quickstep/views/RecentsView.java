@@ -661,9 +661,13 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
     private TaskView mMovingTaskView;
 
     private OverviewActionsView mActionsView;
-    private ObjectAnimator mActionsViewAlphaAnimator;
-    private float mActionsViewAlphaAnimatorFinalValue;
-    private MemInfoView mMemInfoView;
+//<<<<<<< HEAD
+  //  private ObjectAnimator mActionsViewAlphaAnimator;
+    //private float mActionsViewAlphaAnimatorFinalValue;
+    //private MemInfoView mMemInfoView;
+//=======
+    private MidClearAllButton mMidClearAllButton;
+//>>>>>>> e780fabd2a (Introduce floating clear all button)
 
     private MultiWindowModeChangedListener mMultiWindowModeChangedListener =
             new MultiWindowModeChangedListener() {
@@ -885,11 +889,21 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
     }
 
     public void init(OverviewActionsView actionsView, SplitSelectStateController splitController,
+<<<<<<< HEAD
                         MemInfoView memInfoView) {
         mActionsView = actionsView;
         mActionsView.updateHiddenFlags(HIDDEN_NO_TASKS, getTaskViewCount() == 0);
         mSplitSelectStateController = splitController;
         mMemInfoView = memInfoView;
+=======
+                        MidClearAllButton midClearAllButton) {
+        mActionsView = actionsView;
+        mActionsView.updateHiddenFlags(HIDDEN_NO_TASKS, getTaskViewCount() == 0);
+        mSplitSelectStateController = splitController;
+        mMidClearAllButton = midClearAllButton;
+        midClearAllButton.setOnClickListener(this::dismissAllTasks);
+        midClearAllButton.hide(MidClearAllButton.HIDDEN_NO_TASKS, getTaskViewCount() == 0);
+>>>>>>> e780fabd2a (Introduce floating clear all button)
     }
 
     public SplitSelectStateController getSplitPlaceholder() {
@@ -967,6 +981,7 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
             }
             taskView.setTaskViewId(-1);
             mActionsView.updateHiddenFlags(HIDDEN_NO_TASKS, getTaskViewCount() == 0);
+            mMidClearAllButton.hide(MidClearAllButton.HIDDEN_NO_TASKS, getTaskViewCount() == 0);
         }
     }
 
@@ -978,6 +993,7 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
         // child direction back to match system settings.
         child.setLayoutDirection(mIsRtl ? View.LAYOUT_DIRECTION_LTR : View.LAYOUT_DIRECTION_RTL);
         mActionsView.updateHiddenFlags(HIDDEN_NO_TASKS, false);
+        mMidClearAllButton.hide(MidClearAllButton.HIDDEN_NO_TASKS, false);
         updateEmptyMessage();
     }
 
@@ -1641,7 +1657,11 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
         // Fade out the actions view quickly (0.1 range)
         float alpha = mapToRange(fullscreenProgress, 0, 0.1f, 1f, 0f, LINEAR);
         mActionsView.getFullscreenAlpha().setValue(alpha);
+<<<<<<< HEAD
         mMemInfoView.setAlpha(MemInfoView.ALPHA_FS_PROGRESS, alpha);
+=======
+        mMidClearAllButton.setAlpha(MidClearAllButton.ALPHA_FS_PROGRESS, alpha);
+>>>>>>> e780fabd2a (Introduce floating clear all button)
     }
 
     private void updateTaskStackListenerState() {

@@ -46,7 +46,11 @@ public class OverviewModalTaskState extends OverviewState {
 
     @Override
     public int getVisibleElements(Launcher launcher) {
-        return OVERVIEW_ACTIONS | MEMINFO;
+//<<<<<<< HEAD
+  //      return OVERVIEW_ACTIONS | MEMINFO;
+//=======
+        return OVERVIEW_ACTIONS | MID_CLEAR_ALL_BUTTON;
+//>>>>>>> e780fabd2a (Introduce floating clear all button)
     }
 
     @Override
